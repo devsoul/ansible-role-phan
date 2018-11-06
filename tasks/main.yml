@@ -1,0 +1,15 @@
+---
+- name: Fetch Phan latest release version.
+  uri:
+    url: https://api.github.com/repos/phan/phan/releases/latest
+    body_format: json
+    return_content: true
+  register: json_response
+
+- name: Install Phan.
+  become: yes
+  get_url:
+    url: https://github.com/phan/phan/releases/download/{{ json_response.json.tag_name }}/phan.phar
+    dest: /usr/local/bin/phan
+    mode: 0755
+    force: yes
