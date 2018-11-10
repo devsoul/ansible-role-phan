@@ -7,9 +7,9 @@
   register: json_response
 
 - name: Install Phan.
-  become: yes
+  become: true
   get_url:
     url: https://github.com/phan/phan/releases/download/{{ json_response.json.tag_name }}/phan.phar
     dest: /usr/local/bin/phan
     mode: 0755
-    force: yes
+    force: true
